@@ -6,7 +6,7 @@ const app = require("../app");
 const { User } = require("../models/usersModel");
 
 const PORT = process.env.PORT || 3000;
-const TEST_MONGO_URL = process.env.TEST_MONGO_URL;
+const TEST_DB_HOST = process.env.TEST_DB_HOST;
 
 describe("login controller unit test", () => {
   let server;
@@ -14,7 +14,7 @@ describe("login controller unit test", () => {
   afterAll(() => server.close());
 
   beforeEach((done) => {
-    mongoose.connect(TEST_MONGO_URL).then(() => done());
+    mongoose.connect(TEST_DB_HOST).then(() => done());
   });
 
   afterEach((done) => {
