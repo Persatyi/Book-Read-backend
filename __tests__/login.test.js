@@ -94,7 +94,7 @@ describe("login controller unit test", () => {
     expect(body.message).toBe("Bad request");
   });
 
-  it("wrong email 123 , status 400, 'Bad request'", async () => {
+  it("invalid email 123 , status 400, 'Bad request'", async () => {
     const newUser = {
       email: 123,
       password: "123456",
@@ -107,7 +107,7 @@ describe("login controller unit test", () => {
     expect(body.message).toBe("Bad request");
   });
 
-  it("wrong email false , status 400, 'Bad request'", async () => {
+  it("invalid email false , status 400, 'Bad request'", async () => {
     const newUser = {
       email: false,
       password: "123456",
@@ -120,7 +120,7 @@ describe("login controller unit test", () => {
     expect(body.message).toBe("Bad request");
   });
 
-  it("wrong email {} , status 400, 'Bad request'", async () => {
+  it("invalid email {} , status 400, 'Bad request'", async () => {
     const newUser = {
       email: {},
       password: "123456",
@@ -133,7 +133,7 @@ describe("login controller unit test", () => {
     expect(body.message).toBe("Bad request");
   });
 
-  it("wrong email [] , status 400, 'Bad request'", async () => {
+  it("invalid email [] , status 400, 'Bad request'", async () => {
     const newUser = {
       email: [],
       password: "123456",
@@ -146,7 +146,7 @@ describe("login controller unit test", () => {
     expect(body.message).toBe("Bad request");
   });
 
-  it("wrong password 123456 , status 400, 'Bad request'", async () => {
+  it("invalid password 123456 , status 400, 'Bad request'", async () => {
     const newUser = {
       email: "test@mail.com",
       password: 123456,
@@ -159,7 +159,7 @@ describe("login controller unit test", () => {
     expect(body.message).toBe("Bad request");
   });
 
-  it("wrong password false , status 400, 'Bad request'", async () => {
+  it("invalid password false , status 400, 'Bad request'", async () => {
     const newUser = {
       email: "test@mail.com",
       password: false,
@@ -172,7 +172,7 @@ describe("login controller unit test", () => {
     expect(body.message).toBe("Bad request");
   });
 
-  it("wrong password {} , status 400, 'Bad request", async () => {
+  it("invalid password {} , status 400, 'Bad request", async () => {
     const newUser = {
       email: "test@mail.com",
       password: {},
@@ -185,7 +185,7 @@ describe("login controller unit test", () => {
     expect(body.message).toBe("Bad request");
   });
 
-  it("wrong password [] , status 400, 'Bad request", async () => {
+  it("invalid password [] , status 400, 'Bad request", async () => {
     const newUser = {
       email: "test@mail.com",
       password: [],
