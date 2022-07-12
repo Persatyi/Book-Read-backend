@@ -31,11 +31,11 @@ const bookSchema = Schema(
     rating: {
       type: Number,
       enum: rating,
-      default: "0",
+      default: 0,
     },
     resume: {
       type: String,
-      default: null,
+      default: "",
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -56,7 +56,7 @@ const addBook = Joi.object({
 });
 const schemas = { addBook };
 const Book = model("book", bookSchema);
-model.exports = {
+module.exports = {
   Book,
   schemas,
 };

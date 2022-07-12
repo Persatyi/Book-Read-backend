@@ -1,4 +1,4 @@
-const { Training } = require("../../models");
+const Training = require("../../models/training");
 
 const add = async (body) => {
   const training = await Training.create({ ...body });
