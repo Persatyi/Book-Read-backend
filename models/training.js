@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Joi = require("joi");
 
 const trainingSchema = new mongoose.Schema({
   start: {
@@ -18,4 +19,14 @@ const trainingSchema = new mongoose.Schema({
 
 const Training = mongoose.model("training", trainingSchema);
 
-module.exports = Training;
+const addTraining = Joi.object({
+  start: Joi.date().required(),
+  end: Joi.date().required().min(Joi.ref("start")),
+  books: Joi.array().items(Joi.string()),
+});
+
+const schemas = {
+  add: addTraining,
+};
+
+module.exports = { Training, schemas };

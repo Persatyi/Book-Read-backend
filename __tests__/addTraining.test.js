@@ -5,7 +5,7 @@ require("dotenv").config();
 const app = require("../app");
 const { User } = require("../models/user");
 const { Book } = require("../models/book");
-const Training = require("../models/training");
+const { Training } = require("../models/training");
 
 const PORT = process.env.PORT || 3000;
 const TEST_DB_HOST = process.env.TEST_DB_HOST;
@@ -59,7 +59,7 @@ describe("login controller unit test", () => {
 
     const newTraining = {
       start: new Date(),
-      end: new Date() + 1000 * 60 * 60 * 24,
+      end: new Date(Date.now() + 1000 * 60 * 60 * 24),
       books: [testBook1Id, testBook2Id],
     };
 
@@ -71,6 +71,8 @@ describe("login controller unit test", () => {
     const { body } = response;
     const { start, end, books } = await Training.findById(_id);
     const booksStrings = books.map((book) => book.toString());
+
+    console.log(body);
 
     expect(response.statusCode).toBe(201);
     expect(body.start).toBeDefined();
