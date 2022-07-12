@@ -14,6 +14,12 @@ const trainingSchema = new mongoose.Schema({
   books: {
     type: [mongoose.Types.ObjectId],
     ref: "book",
+    required: true,
+  },
+  owner: {
+    type: mongoose.Types.ObjectId,
+    ref: "user",
+    required: true,
   },
 });
 

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const request = require("supertest");
+const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 const app = require("../app");
@@ -9,6 +10,7 @@ const { Training } = require("../models/training");
 
 const PORT = process.env.PORT || 3000;
 const TEST_DB_HOST = process.env.TEST_DB_HOST;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 describe("add Training route test", () => {
   let server;
@@ -31,7 +33,12 @@ describe("add Training route test", () => {
       email: "test@mail.com",
       password: "test123456",
     };
-    const { _id: userId } = User.create(testUser);
+    const { _id: userId } = await User.create(testUser);
+    const payload = {
+      id: userId,
+    };
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "12h" });
+    await User.findByIdAndUpdate(userId, { token });
 
     const testBook1 = {
       title: "Book1",
@@ -63,11 +70,13 @@ describe("add Training route test", () => {
       books: [testBook1Id, testBook2Id],
     };
 
-    const { _id } = await Training.create(newTraining);
+    const { _id } = await Training.create({ ...newTraining, owner: userId });
 
     const response = await request(app)
       .post("/api/trainings")
+      .set("Authorization", `Bearer ${token}`)
       .send(newTraining);
+
     const { body } = response;
     const { start, end, books } = await Training.findById(_id);
     const booksStrings = books.map((book) => book.toString());
