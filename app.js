@@ -4,7 +4,7 @@ const cors = require("cors");
 
 require("dotenv").config();
 
-// const routers = require("./routes/api");
+const routes = require("./routes/api");
 
 const app = express();
 
@@ -15,6 +15,8 @@ app.use(cors());
 app.use(express.json());
 
 // Роути писати під цим коментом
+
+app.use("/api/trainings", routes.training);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

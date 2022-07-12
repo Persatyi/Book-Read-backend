@@ -1,5 +1,5 @@
 {
-  "name": "Book-Read-backend",
+  "name": "book-read-backend",
   "version": "1.0.0",
   "repository": "https://github.com/Persatyi/Book-Read-backend.git",
   "author": "GoIT team",
@@ -28,9 +28,11 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "jest": "^28.1.2",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "supertest": "^6.2.4"
   }
 }
