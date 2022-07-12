@@ -4,7 +4,7 @@ const router = express.Router();
 const { auth, validation } = require("../../middlewares");
 const { auth: ctrl } = require("../../controllers");
 const { ctrlWrapper } = require("../../helpers");
-const { schemas } = require("../../models");
+const { schemas } = require("../../models/user");
 
 router.post("/register", validation(schemas.registerUser), ctrlWrapper(ctrl.register));
 
