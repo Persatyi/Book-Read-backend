@@ -3,7 +3,7 @@ const request = require("supertest");
 
 require("dotenv").config();
 const app = require("../app");
-const { User } = require("../models/usersModel");
+const { User } = require("../models/user");
 
 const PORT = process.env.PORT || 3000;
 const TEST_DB_HOST = process.env.TEST_DB_HOST;
