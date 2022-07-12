@@ -196,4 +196,20 @@ describe("signup controller unit test", () => {
     expect(response.statusCode).toBe(400);
     expect(body.message).toBe("Bad request");
   });
+
+  it("existing email, status 409, 'Conflict'", async () => {
+    const newUser = {
+      name: "test",
+      email: "test@mail.com",
+      password: "123456",
+    };
+
+    await User.create(newUser);
+
+    const response = await request(app).post("/api/users/signup").send(newUser);
+    const { body } = response;
+
+    expect(response.statusCode).toBe(409);
+    expect(body.message).toBe("Conflict");
+  });
 });
