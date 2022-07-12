@@ -4,7 +4,7 @@ const cors = require("cors");
 
 require("dotenv").config();
 
-// const routers = require("./routes/api");
+const routers = require("./routers/api");
 
 const app = express();
 
@@ -15,6 +15,8 @@ app.use(cors());
 app.use(express.json());
 
 // Роути писати під цим коментом
+
+app.use("/api/users", routers.users);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
