@@ -18,6 +18,8 @@ app.use(express.json());
 // Route for books
 app.use("/api/books", routers.books)
 
+app.use("/api/users", routers.users);
+
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });

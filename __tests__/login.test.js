@@ -3,7 +3,7 @@ const request = require("supertest");
 
 require("dotenv").config();
 const app = require("../app");
-const { User } = require("../models/usersModel");
+const { User } = require("../models/user");
 
 const PORT = process.env.PORT || 3000;
 const TEST_DB_HOST = process.env.TEST_DB_HOST;
@@ -26,7 +26,7 @@ describe("login controller unit test", () => {
   it("status 200, token and user object with email", async () => {
     const newUser = {
       email: "test@mail.com",
-      password: "123456",
+      password: "Test123456",
     };
 
     const { _id } = await User.create(newUser);
@@ -46,17 +46,17 @@ describe("login controller unit test", () => {
     );
   });
 
-  it("empty user, status 400, 'Bad request'", async () => {
+  it("empty user, status 400, '\"email\" is required'", async () => {
     const newUser = {};
 
     const response = await request(app).post("/api/users/login").send(newUser);
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"email" is required');
   });
 
-  it("no password, status 400, 'Bad request'", async () => {
+  it("no password, status 400, '\"password\" is required'", async () => {
     const newUser = {
       email: "test@mail.com",
     };
@@ -65,25 +65,25 @@ describe("login controller unit test", () => {
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"password" is required');
   });
 
-  it("no email, status 400, 'Bad request'", async () => {
+  it("no email, status 400, '\"email\" is required'", async () => {
     const newUser = {
-      password: "123456",
+      password: "Test123456",
     };
 
     const response = await request(app).post("/api/users/login").send(newUser);
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"email" is required');
   });
 
-  it("extra field, status 400, 'Bad request'", async () => {
+  it("extra field, status 400, '\"extra\" is not allowed'", async () => {
     const newUser = {
       email: "test@mail.com",
-      password: "123456",
+      password: "Test123456",
       extra: 123,
     };
 
@@ -91,62 +91,62 @@ describe("login controller unit test", () => {
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"extra" is not allowed');
   });
 
-  it("invalid email 123 , status 400, 'Bad request'", async () => {
+  it("invalid email 123 , status 400, '\"email\" must be a string'", async () => {
     const newUser = {
       email: 123,
-      password: "123456",
+      password: "Test123456",
     };
 
     const response = await request(app).post("/api/users/login").send(newUser);
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"email" must be a string');
   });
 
-  it("invalid email false , status 400, 'Bad request'", async () => {
+  it("invalid email false , status 400, '\"email\" must be a string'", async () => {
     const newUser = {
       email: false,
-      password: "123456",
+      password: "Test123456",
     };
 
     const response = await request(app).post("/api/users/login").send(newUser);
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"email" must be a string');
   });
 
-  it("invalid email {} , status 400, 'Bad request'", async () => {
+  it("invalid email {} , status 400, '\"email\" must be a string'", async () => {
     const newUser = {
       email: {},
-      password: "123456",
+      password: "Test123456",
     };
 
     const response = await request(app).post("/api/users/login").send(newUser);
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"email" must be a string');
   });
 
-  it("invalid email [] , status 400, 'Bad request'", async () => {
+  it("invalid email [] , status 400, '\"email\" must be a string'", async () => {
     const newUser = {
       email: [],
-      password: "123456",
+      password: "Test123456",
     };
 
     const response = await request(app).post("/api/users/login").send(newUser);
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"email" must be a string');
   });
 
-  it("invalid password 123456 , status 400, 'Bad request'", async () => {
+  it("invalid password 123456 , status 400, '\"password\" must be a string'", async () => {
     const newUser = {
       email: "test@mail.com",
       password: 123456,
@@ -156,10 +156,10 @@ describe("login controller unit test", () => {
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"password" must be a string');
   });
 
-  it("invalid password false , status 400, 'Bad request'", async () => {
+  it("invalid password false , status 400, '\"password\" must be a string'", async () => {
     const newUser = {
       email: "test@mail.com",
       password: false,
@@ -169,10 +169,10 @@ describe("login controller unit test", () => {
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"password" must be a string');
   });
 
-  it("invalid password {} , status 400, 'Bad request", async () => {
+  it('invalid password {} , status 400, \'"password" must be a string', async () => {
     const newUser = {
       email: "test@mail.com",
       password: {},
@@ -182,10 +182,10 @@ describe("login controller unit test", () => {
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"password" must be a string');
   });
 
-  it("invalid password [] , status 400, 'Bad request", async () => {
+  it('invalid password [] , status 400, \'"password" must be a string', async () => {
     const newUser = {
       email: "test@mail.com",
       password: [],
@@ -195,13 +195,14 @@ describe("login controller unit test", () => {
     const { body } = response;
 
     expect(response.statusCode).toBe(400);
-    expect(body.message).toBe("Bad request");
+    expect(body.message).toBe('"password" must be a string');
   });
 
   it("no such email in base, status 401, Email or password is wrong", async () => {
     const newUser = {
+      name: "test",
       email: "test@mail.com",
-      password: "123456",
+      password: "Test123456",
     };
 
     const response = await request(app).post("/api/users/login").send(newUser);
@@ -213,14 +214,15 @@ describe("login controller unit test", () => {
 
   it("wrong password, status 401, Email or password is wrong", async () => {
     const newUser = {
+      name: "test",
       email: "test@mail.com",
-      password: "123456",
+      password: "Test123456",
     };
     await User.create(newUser);
 
     const wrongUser = {
       ...newUser,
-      password: "1234567",
+      password: "Test1234567",
     };
     const response = await request(app)
       .post("/api/users/login")
