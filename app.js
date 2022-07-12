@@ -15,6 +15,8 @@ app.use(cors());
 app.use(express.json());
 
 // Роути писати під цим коментом
+// Route for books
+app.use("/api/books", routers.books)
 
 app.use("/api/users", routers.users);
 
