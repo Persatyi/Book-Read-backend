@@ -2,7 +2,7 @@
 
 const express = require("express");
 const { books: ctrl } = require("../../controllers")
-const { ctrlWrapper } = requiure("../../helpers");
+const { ctrlWrapper } = require("../../helpers");
 // Need add "auth"
 const { validation } = require("../../middlewares")
 const { schemas } = require("../../models/book")

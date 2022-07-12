@@ -4,7 +4,7 @@ const cors = require("cors");
 
 require("dotenv").config();
 
-const routers = require("./routes/api");
+const routers = require("./routers/api");
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(express.json());
 
 // Роути писати під цим коментом
 // Route for books
-app.use("api/books", routers.books)
+app.use("/api/books", routers.books)
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

@@ -56,7 +56,7 @@ const schemas = { addBook };
 
 const Book = model("book", bookSchema);
 
-model.exports = {
+module.exports = {
    Book,
    schemas
 }
