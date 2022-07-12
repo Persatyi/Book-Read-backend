@@ -10,7 +10,7 @@ const { Training } = require("../models/training");
 const PORT = process.env.PORT || 3000;
 const TEST_DB_HOST = process.env.TEST_DB_HOST;
 
-describe("login controller unit test", () => {
+describe("add Training route test", () => {
   let server;
   beforeAll(() => (server = app.listen(PORT)));
   afterAll(() => server.close());
@@ -71,8 +71,6 @@ describe("login controller unit test", () => {
     const { body } = response;
     const { start, end, books } = await Training.findById(_id);
     const booksStrings = books.map((book) => book.toString());
-
-    console.log(body);
 
     expect(response.statusCode).toBe(201);
     expect(body.start).toBeDefined();

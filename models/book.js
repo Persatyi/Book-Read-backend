@@ -1,6 +1,7 @@
 // Import
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
+
 // Array schema
 const status = ["goingToRead", "reading", "read"];
 const rating = [0, 1, 2, 3, 4, 5];
@@ -35,7 +36,7 @@ const bookSchema = Schema(
     },
     resume: {
       type: String,
-      default: "",
+      default: null,
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -55,7 +56,9 @@ const addBook = Joi.object({
   resume: Joi.string(),
 });
 const schemas = { addBook };
+
 const Book = model("book", bookSchema);
+
 module.exports = {
   Book,
   schemas,
