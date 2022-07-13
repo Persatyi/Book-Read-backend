@@ -1,5 +1,0 @@
-{
-  "eslint.workingDirectories": [
-    "E:/work/goit/homework/book-read-backend" // replace {PATH_TO_CLIENT} with you own path
-  ]
-}
