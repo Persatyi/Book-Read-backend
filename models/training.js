@@ -21,6 +21,11 @@ const trainingSchema = new mongoose.Schema({
     ref: "user",
     required: true,
   },
+  results: {
+    type: [mongoose.Types.ObjectId],
+    ref: "result",
+    default: [],
+  },
 });
 
 const Training = mongoose.model("training", trainingSchema);

@@ -12,7 +12,15 @@ const resultSchema = Schema({
   },
 });
 
+const Result = model("result", resultSchema);
+
 const addResult = Joi.object({
   date: Joi.date().required(),
   pages: Joi.number().required(),
 });
+
+const schemas = {
+  add: addResult,
+};
+
+module.exports = { Result, schemas };
