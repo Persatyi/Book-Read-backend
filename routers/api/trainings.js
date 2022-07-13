@@ -8,5 +8,6 @@ const ctrl = require("../../controllers/training");
 const { schemas } = require("../../models/training");
 
 router.post("/", validation(schemas.add), auth, ctrlWrapper(ctrl.add));
+router.get("/", auth, ctrlWrapper(ctrl.get));
 
 module.exports = router;
