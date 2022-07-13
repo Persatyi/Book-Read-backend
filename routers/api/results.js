@@ -7,3 +7,5 @@ const { validation, auth } = require("../../middlewares");
 const { schemas } = require("../../models/book");
 
 router.post("/", auth, validation(schemas));
+
+module.exports = router;
