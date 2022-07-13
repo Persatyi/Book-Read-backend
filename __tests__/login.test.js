@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const request = require("supertest");
+const bcrypt = require("bcryptjs");
 
 require("dotenv").config();
 const app = require("../app");
@@ -29,11 +30,15 @@ describe("login controller unit test", () => {
       password: "Test123456",
     };
 
-    const { _id } = await User.create(newUser);
+    const { _id } = await User.create({
+      ...newUser,
+      name: "Test",
+      password: await bcrypt.hash(newUser.password, 10),
+    });
 
     const response = await request(app).post("/api/users/login").send(newUser);
     const { body } = response;
-    const { token, email } = await User.findById(_id);
+    const { token, email, name } = await User.findById(_id);
 
     expect(response.statusCode).toBe(200);
     expect(body.token).toBeDefined();
@@ -42,6 +47,7 @@ describe("login controller unit test", () => {
     expect(body.user).toEqual(
       expect.objectContaining({
         email,
+        name,
       })
     );
   });
@@ -200,25 +206,22 @@ describe("login controller unit test", () => {
 
   it("no such email in base, status 401, Email or password is wrong", async () => {
     const newUser = {
-      name: "test",
       email: "test@mail.com",
       password: "Test123456",
     };
 
     const response = await request(app).post("/api/users/login").send(newUser);
     const { body } = response;
-
     expect(response.statusCode).toBe(401);
     expect(body.message).toBe("Email or password is wrong");
   });
 
   it("wrong password, status 401, Email or password is wrong", async () => {
     const newUser = {
-      name: "test",
       email: "test@mail.com",
       password: "Test123456",
     };
-    await User.create(newUser);
+    await User.create({ ...newUser, name: "Test" });
 
     const wrongUser = {
       ...newUser,
@@ -228,7 +231,6 @@ describe("login controller unit test", () => {
       .post("/api/users/login")
       .send(wrongUser);
     const { body } = response;
-
     expect(response.statusCode).toBe(401);
     expect(body.message).toBe("Email or password is wrong");
   });
