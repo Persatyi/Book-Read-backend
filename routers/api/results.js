@@ -14,4 +14,6 @@ router.patch(
   ctrlWrapper(ctrl.updateResult)
 );
 
+router.get("/", auth, ctrlWrapper(ctrl.getResults));
+
 module.exports = router;
