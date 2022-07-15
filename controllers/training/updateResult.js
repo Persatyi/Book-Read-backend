@@ -1,6 +1,7 @@
 const { Result } = require("../../models/result");
 const { get: getTraining } = require("../../services/training");
 const { Training } = require("../../models/training");
+const createError = require("../../helpers");
 
 const updateResult = async (req, res) => {
   const { body, user } = req;
@@ -11,12 +12,16 @@ const updateResult = async (req, res) => {
   await Training.findByIdAndUpdate(training._id, {
     results: [...training.results, data._id],
   });
-  const response = {
-    id: data._id,
-    pages: data.pages,
-    date: data.date,
-  };
-  res.status(201).json(response);
+  const collection = await Result.find({}, "-__v");
+
+  if (!collection) {
+    throw createError(404, "No results in collection");
+  }
+  // const totalPages = collection.reduce((total, el) => {
+  //   return (total += Number(el.pages));
+  // }, 0);
+
+  res.status(201).json(collection);
 };
 
 module.exports = updateResult;
