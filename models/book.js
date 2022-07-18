@@ -55,7 +55,11 @@ const addBook = Joi.object({
   rating: Joi.number().valid(...rating),
   resume: Joi.string(),
 });
-const schemas = { addBook };
+const reviewBook = Joi.object({
+  rating: Joi.number().valid(...rating),
+  resume: Joi.string(),
+});
+const schemas = { addBook, reviewBook };
 
 const Book = model("book", bookSchema);
 
