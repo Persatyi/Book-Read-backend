@@ -1,5 +1,5 @@
 const { Training } = require("../../models/training");
-const createError = require("../../helpers");
+const { createError } = require("../../helpers");
 
 const get = async (userId) => {
   const trainings = await Training.find(
