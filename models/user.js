@@ -28,11 +28,11 @@ const userSchema = Schema(
     },
     token: {
       type: String,
-      default: null,
+      default: "",
     },
     refreshToken: {
       type: String,
-      default: null,
+      default: "",
     },
   },
   { versionKey: false, timestamps: true }
