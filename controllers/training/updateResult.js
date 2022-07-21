@@ -7,20 +7,19 @@ const updateResult = async (req, res) => {
   const { body, user } = req;
   const data = await services.add(body);
   const training = await getTraining(user._id);
-  await Training.findByIdAndUpdate(training._id, {
-    results: [...training.results, data._id],
-  });
-  const updatedTraining = await getTraining(user._id);
-  const arrayOfResults = await Result.find()
-    .where("_id")
-    .in(updatedTraining.results)
-    .exec();
+  const updatedTraining = await Training.findByIdAndUpdate(
+    training._id,
+    {
+      results: [...training.results, data._id],
+    },
+    { new: true }
+  ).populate("results");
 
   const totalPages = training.books.reduce((total, el) => {
     return (total += Number(el.pages));
   }, 0);
 
-  const addedPages = arrayOfResults.reduce((total, el) => {
+  const addedPages = updatedTraining.results.reduce((total, el) => {
     return (total += Number(el.pages));
   }, 0);
 
@@ -36,7 +35,7 @@ const updateResult = async (req, res) => {
     });
   } else {
     res.status(201).json({
-      data: arrayOfResults,
+      data: updatedTraining.results,
       total: totalPages,
       added: addedPages,
       start: training.start,
