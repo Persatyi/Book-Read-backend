@@ -1,4 +1,4 @@
-const { createError } = require("../helpers");
+const { createError } = require("../../helpers");
 const { addNewTokens } = require("../../services/users");
 const jwt = require("jsonwebtoken");
 const { SECRET_REFRESH_KEY } = process.env;
@@ -19,3 +19,5 @@ const refreshToken = async (req, res) => {
 };
 
 module.exports = refreshToken;
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDkxM2Y0NTlmMWE0OTAyOWJmYjE4OCIsImlhdCI6MTY1ODM5MzU4OSwiZXhwIjoxNjg5OTUxMTg5fQ.88mJZckDG8-kxvtKloXJbyu82JN3wEGm554KdfeWmlE
