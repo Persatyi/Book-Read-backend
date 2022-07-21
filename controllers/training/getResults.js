@@ -3,11 +3,8 @@ const { get: getTraining } = require("../../services/training");
 
 const getResults = async (req, res) => {
   const { user } = req;
-  const training = await getTraining(user._id);
-  const arrayOfResults = await Result.find()
-    .where("_id")
-    .in(training.results)
-    .exec();
+  const training = await (await getTraining(user._id)).populate("results");
+  const arrayOfResults = training.results;
 
   if (!arrayOfResults) {
     return res.status(200).json({
