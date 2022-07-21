@@ -7,12 +7,7 @@ const { validation, auth } = require("../../middlewares");
 
 const { schemas } = require("../../models/result");
 
-router.patch(
-  "/",
-  auth,
-  validation(schemas.add),
-  ctrlWrapper(ctrl.updateResult)
-);
+router.post("/", auth, validation(schemas.add), ctrlWrapper(ctrl.updateResult));
 
 router.get("/", auth, ctrlWrapper(ctrl.getResults));
 
