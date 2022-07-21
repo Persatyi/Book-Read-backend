@@ -7,7 +7,7 @@ const addNewTokens = async (userId) => {
   const payload = {
     id: userId,
   };
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "30s" });
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
   const refreshToken = jwt.sign(payload, SECRET_REFRESH_KEY, {
     expiresIn: "1y",
   });
