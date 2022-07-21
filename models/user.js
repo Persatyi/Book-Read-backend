@@ -10,7 +10,7 @@ const userSchema = Schema(
   {
     password: {
       type: String,
-      required: [true, "Password is required"],
+      default: null,
     },
     email: {
       type: String,
@@ -30,6 +30,10 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
+    google: {
+      type: Boolean,
+      default: false,
+    }
   },
   { versionKey: false, timestamps: true }
 );
@@ -44,9 +48,14 @@ const loginUser = Joi.object({
   password: Joi.string().min(6).max(16).pattern(passwordRegexp).required(),
 });
 
+const googleLogin = Joi.object({
+  token: Joi.string().required()
+})
+
 const schemas = {
   registerUser,
   loginUser,
+  googleLogin
 };
 
 const User = model("user", userSchema);
