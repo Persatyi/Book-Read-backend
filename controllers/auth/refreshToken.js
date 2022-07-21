@@ -22,7 +22,7 @@ const refreshToken = async (req, res) => {
       error.message === "Invalid signature" ||
       error.message === "jwt expired"
     ) {
-      error.status = 401;
+      throw createError(401);
     }
   }
 };
