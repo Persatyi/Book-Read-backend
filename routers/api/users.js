@@ -18,6 +18,6 @@ router.post("/refresh", ctrlWrapper(ctrl.refreshToken));
 
 router.get("/current", auth, ctrlWrapper(ctrl.getCurrent));
 
-router.get("/logout", auth, ctrlWrapper(ctrl.logout));
+router.post("/logout", auth, ctrlWrapper(ctrl.logout));
 
 module.exports = router;
