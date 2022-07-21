@@ -24,7 +24,8 @@ const { REACT_APP_GOOGLE_CLIENT_ID,  SECRET_KEY} = process.env;
 const client = new OAuth2Client(REACT_APP_GOOGLE_CLIENT_ID);
 
 const googleAuth = async (res, req) => {
-    const { token : googleToken } = req.body;
+    console.log(req.body)
+    const { googleToken} = req.body;
     const ticket = await client.verifyIdToken({
         idToken: googleToken,
         audience: process.env.CLIENT_ID,
