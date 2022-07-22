@@ -14,7 +14,9 @@ router.post(
 
 router.post("/login", validation(schemas.loginUser), ctrlWrapper(ctrl.login));
 
-router.post("/refresh", ctrlWrapper(ctrl.refreshToken));
+router.post("/login-google", validation(schemas.googleLogin), ctrlWrapper(ctrl.googleAuth));
+
+router.post("/refresh", validation(schemas.refreshToken), ctrlWrapper(ctrl.refreshToken));
 
 router.get("/current", auth, ctrlWrapper(ctrl.getCurrent));
 
