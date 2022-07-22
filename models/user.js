@@ -53,13 +53,18 @@ const loginUser = Joi.object({
 });
 
 const googleLogin = Joi.object({
-  token: Joi.string().required()
-})
+  googleToken: Joi.string().required()
+});
+
+const refreshToken = Joi.object({
+  refreshToken: Joi.string().required()
+});
 
 const schemas = {
   registerUser,
   loginUser,
-  googleLogin
+  googleLogin,
+  refreshToken
 };
 
 const User = model("user", userSchema);
