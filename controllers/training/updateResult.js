@@ -45,6 +45,8 @@ const updateResult = async (req, res) => {
 
   if (addedPages >= totalPages || training.end < new Date()) {
     await Result.deleteMany({ _id: { $in: updatedTraining.results } });
+    await Training.findByIdAndRemove(training._id);
+
     res.status(200).send({
       message: "Data was removed",
       data: [],
@@ -53,7 +55,7 @@ const updateResult = async (req, res) => {
       start: null,
       end: null,
       finish: true,
-      isBookRead: false,
+      isBookRead,
     });
   } else {
     res.status(201).json({
