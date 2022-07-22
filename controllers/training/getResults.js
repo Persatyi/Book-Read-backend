@@ -1,4 +1,5 @@
 const { get: getTraining } = require("../../services/training");
+const { Training } = require("../../models/training");
 
 const getResults = async (req, res) => {
   const { user } = req;
@@ -18,12 +19,15 @@ const getResults = async (req, res) => {
   }
 
   const arrayOfResults = training.results;
+  const updatedTraining = await Training.findByIdAndUpdate(
+    training._id
+  ).populate("results");
 
   const totalPages = training.books.reduce((total, el) => {
     return (total += Number(el.pages));
   }, 0);
 
-  const addedPages = arrayOfResults.reduce((total, el) => {
+  const addedPages = updatedTraining.results.reduce((total, el) => {
     return (total += Number(el.pages));
   }, 0);
 
@@ -39,7 +43,7 @@ const getResults = async (req, res) => {
   }
 
   const response = {
-    data: arrayOfResults,
+    data: updatedTraining.results,
     total: totalPages,
     added: addedPages,
     start: training.start,
