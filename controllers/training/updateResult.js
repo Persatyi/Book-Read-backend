@@ -2,6 +2,7 @@ const { get: getTraining } = require("../../services/training");
 const { Training } = require("../../models/training");
 const services = require("../../services/results");
 const { Result } = require("../../models/result");
+const { Book } = require("../../models/book");
 
 const updateResult = async (req, res) => {
   const { body, user } = req;
@@ -14,6 +15,7 @@ const updateResult = async (req, res) => {
     },
     { new: true }
   ).populate("results");
+  const books = await Book.find({ _id: training.books });
 
   const totalPages = training.books.reduce((total, el) => {
     return (total += Number(el.pages));
@@ -22,6 +24,24 @@ const updateResult = async (req, res) => {
   const addedPages = updatedTraining.results.reduce((total, el) => {
     return (total += Number(el.pages));
   }, 0);
+
+  let isBookRead = false;
+  let amount = 0;
+  for (book of books) {
+    amount += book.pages;
+    if (addedPages >= amount) {
+      if (book.status === "read") {
+        isBookRead = false;
+        continue;
+      } else {
+        await Book.findByIdAndUpdate({ _id: book._id }, { status: "read" });
+        book.status = "read";
+        isBookRead = true;
+      }
+    } else {
+      break;
+    }
+  }
 
   if (addedPages >= totalPages || training.end < new Date()) {
     await Result.deleteMany({ _id: { $in: updatedTraining.results } });
@@ -32,6 +52,8 @@ const updateResult = async (req, res) => {
       added: 0,
       start: null,
       end: null,
+      finish: true,
+      isBookRead: false,
     });
   } else {
     res.status(201).json({
@@ -40,6 +62,8 @@ const updateResult = async (req, res) => {
       added: addedPages,
       start: training.start,
       end: training.end,
+      finish: false,
+      isBookRead,
     });
   }
 };

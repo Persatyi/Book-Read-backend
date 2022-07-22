@@ -1,10 +1,17 @@
-const { Result } = require("../../models/result");
 const { get: getTraining } = require("../../services/training");
 
 const getResults = async (req, res) => {
   const { user } = req;
   const training = await (await getTraining(user._id)).populate("results");
   const arrayOfResults = training.results;
+
+  const totalPages = training.books.reduce((total, el) => {
+    return (total += Number(el.pages));
+  }, 0);
+
+  const addedPages = arrayOfResults.reduce((total, el) => {
+    return (total += Number(el.pages));
+  }, 0);
 
   if (!arrayOfResults) {
     return res.status(200).json({
@@ -16,14 +23,6 @@ const getResults = async (req, res) => {
       end: null,
     });
   }
-
-  const totalPages = training.books.reduce((total, el) => {
-    return (total += Number(el.pages));
-  }, 0);
-
-  const addedPages = arrayOfResults.reduce((total, el) => {
-    return (total += Number(el.pages));
-  }, 0);
 
   const response = {
     data: arrayOfResults,
