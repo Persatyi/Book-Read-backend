@@ -28,7 +28,11 @@ const userSchema = Schema(
     },
     token: {
       type: String,
-      default: null,
+      default: "",
+    },
+    refreshToken: {
+      type: String,
+      default: "",
     },
     google: {
       type: Boolean,
