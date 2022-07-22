@@ -45,8 +45,8 @@ const googleAuth = async (req, res) => {
             token,
             refreshToken,
             user: {
-            email: result.email,
-            name: result.name,
+                email: result.email,
+                name: result.name,
             },
         });
     }
