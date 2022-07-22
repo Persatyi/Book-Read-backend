@@ -3,6 +3,19 @@ const { get: getTraining } = require("../../services/training");
 const getResults = async (req, res) => {
   const { user } = req;
   const training = await (await getTraining(user._id)).populate("results");
+  if (!training) {
+    res.status(200).send({
+      message: "No training yet",
+      data: [],
+      total: 0,
+      added: 0,
+      start: null,
+      end: null,
+      finish: false,
+      isBookRead: false,
+    });
+  }
+
   const arrayOfResults = training.results;
 
   const totalPages = training.books.reduce((total, el) => {
