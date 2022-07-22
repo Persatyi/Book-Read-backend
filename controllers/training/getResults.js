@@ -1,4 +1,3 @@
-const { Result } = require("../../models/result");
 const { get: getTraining } = require("../../services/training");
 
 const getResults = async (req, res) => {
