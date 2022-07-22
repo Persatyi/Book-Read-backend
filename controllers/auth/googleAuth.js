@@ -14,12 +14,12 @@
 
 const { User } = require("../../models/user");
 const { OAuth2Client } = require('google-auth-library');
-const jwt = require("jsonwebtoken");
+const { addNewTokens } = require("../../services/users");
 require("dotenv").config();
 
 const { createError } = require("../../helpers");
 
-const { REACT_APP_GOOGLE_CLIENT_ID,  SECRET_KEY} = process.env;
+const { REACT_APP_GOOGLE_CLIENT_ID} = process.env;
 
 const client = new OAuth2Client(REACT_APP_GOOGLE_CLIENT_ID);
 
@@ -40,13 +40,10 @@ const googleAuth = async (req, res) => {
             email,
             google: true,
         });
-        const payload = {
-        id: result._id,
-        };
-        const token = jwt.sign(payload, SECRET_KEY);
-        await User.findByIdAndUpdate(result._id, { token });
-        res.status(201).json({
+        const { token, refreshToken } = await addNewTokens(result._id);
+            res.json({
             token,
+            refreshToken,
             user: {
             email: result.email,
             name: result.name,
@@ -57,18 +54,15 @@ const googleAuth = async (req, res) => {
     if (!user.google) {
         throw createError(409, "Email in use");
     }
-    const payload = {
-    id: user._id,
-    };
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "12h" });
-    await User.findByIdAndUpdate(user._id, { token });
-    res.json({
-        token,
-        user: {
-        email: user.email,
-        name: user.name,
-        },
-    });
+    const { token, refreshToken } = await addNewTokens(user._id);
+            res.json({
+            token,
+            refreshToken,
+            user: {
+            email: user.email,
+            name: user.name,
+            },
+        });
 };
 
 module.exports = googleAuth;
