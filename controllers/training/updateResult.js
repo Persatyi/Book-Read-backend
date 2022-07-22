@@ -15,6 +15,7 @@ const updateResult = async (req, res) => {
     },
     { new: true }
   ).populate("results");
+
   const books = await Book.find({ _id: training.books });
 
   const totalPages = training.books.reduce((total, el) => {
@@ -27,7 +28,7 @@ const updateResult = async (req, res) => {
 
   let isBookRead = false;
   let amount = 0;
-  for (book of books) {
+  for (const book of books) {
     amount += book.pages;
     if (addedPages >= amount) {
       if (book.status === "read") {

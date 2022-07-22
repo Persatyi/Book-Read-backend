@@ -2,8 +2,9 @@ const { get: getTraining } = require("../../services/training");
 
 const getResults = async (req, res) => {
   const { user } = req;
-  const training = await (await getTraining(user._id)).populate("results");
-  if (!training) {
+  const training = await getTraining(user._id);
+
+  if (Object.keys(training).length === 0) {
     res.status(200).send({
       message: "No training yet",
       data: [],
