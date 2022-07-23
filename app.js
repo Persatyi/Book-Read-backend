@@ -16,8 +16,6 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 app.use("/api/users", routers.users);
 
 app.use("/api/books", routers.books);
@@ -25,6 +23,8 @@ app.use("/api/books", routers.books);
 app.use("/api/trainings", routers.trainings);
 
 app.use("/api/results", routers.results);
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
