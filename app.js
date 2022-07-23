@@ -24,7 +24,7 @@ app.use("/api/trainings", routers.trainings);
 
 app.use("/api/results", routers.results);
 
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
