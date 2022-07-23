@@ -36,7 +36,6 @@ const updateResult = async (req, res) => {
         continue;
       } else {
         await Book.findByIdAndUpdate({ _id: book._id }, { status: "read" });
-        book.status = "read";
         isBookRead = true;
       }
     } else {
@@ -48,7 +47,7 @@ const updateResult = async (req, res) => {
     await Result.deleteMany({ _id: { $in: updatedTraining.results } });
     await Training.findByIdAndRemove(training._id);
 
-    res.status(200).send({
+    res.status(201).send({
       message: "Data was removed",
       data: [],
       total: 0,

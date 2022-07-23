@@ -1,0 +1,1122 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Book Read App",
+    "description": "This simple application helps you to reach your reading goals    :)",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://persatyi-book-read-backend.herokuapp.com/api",
+      "description": "Base URL"
+    }
+  ],
+  "paths": {
+    "/users/login": {
+      "post": {
+        "summary": "Allows user to sign in",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success unswer JSON object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login-google": {
+      "post": {
+        "summary": "Login with using goggle account",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "login-google",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginGoogleRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Loged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "summary": "Register user",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "regiser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/refresh": {
+      "post": {
+        "summary": "Refresh token",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "refresh",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshToken"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshTokenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "summary": "Update user info",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "current",
+        "responses": {
+          "200": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "John"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "johndou@mail.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bad request",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "summary": "Refresh token",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "logout",
+        "responses": {
+          "204": {
+            "description": "User logged out",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Logged out"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "summary": "Get all books",
+        "tags": [
+          "Books"
+        ],
+        "operationId": "getAllBooks",
+        "responses": {
+          "200": {
+            "description": "User logged out",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayOfBooks"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add book",
+        "tags": [
+          "Books"
+        ],
+        "operationId": "addBook",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Book successfully added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "example": "С++ Basic course"
+                    },
+                    "author": {
+                      "type": "string",
+                      "example": "Herbert Shield"
+                    },
+                    "year": {
+                      "type": "number",
+                      "example": 2020
+                    },
+                    "pages": {
+                      "type": "number",
+                      "example": 510
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "goingToRead"
+                    },
+                    "rating": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "resume": {
+                      "type": "string",
+                      "example": null
+                    },
+                    "owner": {
+                      "type": "string",
+                      "example": "62d15698f1aa0a611943115d"
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "62dc357442a2be44d13face5"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "2022-07-23T17:52:52.540Z",
+                      "example": "2022-07-23T17:52:52.540Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "2022-07-23T17:52:52.540Z",
+                      "example": "2022-07-23T17:52:52.540Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Bad request"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{bookId}": {
+      "patch": {
+        "summary": "Add review",
+        "tags": [
+          "Books"
+        ],
+        "operationId": "addReview",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "required": true,
+            "description": "Book ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBookByIdReqBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "example": "С++ Basic course"
+                    },
+                    "author": {
+                      "type": "string",
+                      "example": "Herbert Shield"
+                    },
+                    "year": {
+                      "type": "number",
+                      "example": 2020
+                    },
+                    "pages": {
+                      "type": "number",
+                      "example": 510
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "goingToRead"
+                    },
+                    "rating": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "resume": {
+                      "type": "string",
+                      "example": "My resume"
+                    },
+                    "owner": {
+                      "type": "string",
+                      "example": "62d15698f1aa0a611943115d"
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "62dc357442a2be44d13face5"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "2022-07-23T17:52:52.540Z",
+                      "example": "2022-07-23T17:52:52.540Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "2022-07-23T17:52:52.540Z",
+                      "example": "2022-07-23T17:52:52.540Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Book not found",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trainings": {
+      "get": {
+        "summary": "Get taining",
+        "tags": [
+          "Training"
+        ],
+        "operationId": "getTraining",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTrainingResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add training",
+        "tags": [
+          "Training"
+        ],
+        "operationId": "addTraining",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddTraining"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Training created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrainingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/results": {
+      "post": {
+        "summary": "Add pages",
+        "tags": [
+          "Results"
+        ],
+        "operationId": "addPages",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "string",
+                    "format": "2022-07-23T17:52:52.540Z",
+                    "example": "2022-07-23T17:52:52.540Z"
+                  },
+                  "pages": {
+                    "type": "number",
+                    "example": 50
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddPagesResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get pages",
+        "tags": [
+          "Results"
+        ],
+        "operationId": "getPages",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPagesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDE1Njk4ZjFhYTBhNjExOTQzMTE1ZCIsImlhdCI6MTY1ODU4MDYwNSwiZXhwIjoxNjU4NTg3ODA1fQ.IrgAbmdlOQAMFC49k5Z2bUSurenXcXBtj_vNc2Ro32U"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDE1Njk4ZjFhYTBhNjExOTQzMTE1ZCIsImlhdCI6MTY1ODU4MDYwNSwiZXhwIjoxNjkwMTM4MjA1fQ.AJc-fmm4aMe0yKED5sV3wCpkoFDKmxi1HbW_lZ0XKNk"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "John"
+              },
+              "email": {
+                "type": "string",
+                "example": "johndou@mail.com"
+              }
+            }
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "johndou@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "Qwerty123"
+          }
+        }
+      },
+      "LoginGoogleRequest": {
+        "type": "object",
+        "required": [
+          "googleToken"
+        ],
+        "properties": {
+          "googleToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDE1Njk4ZjFhYTBhNjExOTQzMTE1ZCIsImlhdCI6MTY1ODU4MDYwNSwiZXhwIjoxNjkwMTM4MjA1fQ.AJc-fmm4aMe0yKED5sV3wCpkoFDKmxi1HbW_lZ0XKNk"
+          }
+        }
+      },
+      "RefreshToken": {
+        "type": "object",
+        "required": [
+          "refreshToken"
+        ],
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDE1Njk4ZjFhYTBhNjExOTQzMTE1ZCIsImlhdCI6MTY1ODU4MDYwNSwiZXhwIjoxNjkwMTM4MjA1fQ.AJc-fmm4aMe0yKED5sV3wCpkoFDKmxi1HbW_lZ0XKNk"
+          }
+        }
+      },
+      "RefreshTokenResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDE1Njk4ZjFhYTBhNjExOTQzMTE1ZCIsImlhdCI6MTY1ODU4MDYwNSwiZXhwIjoxNjU4NTg3ODA1fQ.IrgAbmdlOQAMFC49k5Z2bUSurenXcXBtj_vNc2Ro32U"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZDE1Njk4ZjFhYTBhNjExOTQzMTE1ZCIsImlhdCI6MTY1ODU4MDYwNSwiZXhwIjoxNjkwMTM4MjA1fQ.AJc-fmm4aMe0yKED5sV3wCpkoFDKmxi1HbW_lZ0XKNk"
+          }
+        }
+      },
+      "RegisterUserRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "name",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "johndou@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "Qwerty123"
+          },
+          "name": {
+            "type": "string",
+            "example": "John"
+          }
+        }
+      },
+      "OneBook": {
+        "type": "object",
+        "required": [
+          "_id",
+          "title",
+          "author",
+          "year",
+          "pages",
+          "status",
+          "owner"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "62ced60f693b96bd9a9b668f"
+          },
+          "title": {
+            "type": "string",
+            "example": "С++ Basic course"
+          },
+          "author": {
+            "type": "string",
+            "example": "Herbert Shield"
+          },
+          "year": {
+            "type": "number",
+            "example": 2020
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "read",
+              "reading",
+              "goingToRead"
+            ],
+            "example": "goingToRead"
+          },
+          "rating": {
+            "type": "number",
+            "example": 5
+          },
+          "resume": {
+            "type": "string",
+            "example": "Your commentary"
+          },
+          "owner": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "62d15698f1aa0a611943115d"
+              },
+              "email": {
+                "type": "string",
+                "example": "johndou@mail.com"
+              },
+              "name": {
+                "type": "string",
+                "example": "John"
+              }
+            }
+          }
+        }
+      },
+      "ArrayOfBooks": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/OneBook"
+        }
+      },
+      "AddBook": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "С++ Basic course"
+          },
+          "author": {
+            "type": "string",
+            "example": "Herbert Shield"
+          },
+          "year": {
+            "type": "number",
+            "example": 2020
+          },
+          "pages": {
+            "type": "number",
+            "example": 310
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "read",
+              "reading",
+              "goingToRead"
+            ],
+            "example": "goingToRead"
+          },
+          "rating": {
+            "type": "number",
+            "example": 5
+          },
+          "resume": {
+            "type": "string",
+            "example": "Your commentary"
+          }
+        },
+        "required": [
+          "title",
+          "author",
+          "year",
+          "pages"
+        ]
+      },
+      "UpdateBookByIdReqBody": {
+        "type": "object",
+        "required": [
+          "rating",
+          "resume"
+        ],
+        "properties": {
+          "rating": {
+            "type": "number",
+            "example": 5,
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "resume": {
+            "type": "string",
+            "example": "your comment"
+          }
+        }
+      },
+      "AddTraining": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "end": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "books": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "62dc357442a2be44d13face5, 62dc357442a2be44d13face7"
+            }
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "books"
+        ]
+      },
+      "TrainingResponse": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "end": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "books": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "62dc357442a2be44d13face5, 62dc357442a2be44d13face7"
+            }
+          },
+          "owner": {
+            "type": "string",
+            "example": "62d15698f1aa0a611943115d"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "ID's from adding pages"
+            }
+          },
+          "_id": {
+            "type": "string",
+            "example": "ID of this training"
+          }
+        }
+      },
+      "GetTrainingResponse": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "end": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "books": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OneBook"
+            }
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "ID's from adding pages"
+            }
+          }
+        }
+      },
+      "AddPagesData": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "62dc357442a2be44d13face5"
+          },
+          "date": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "pages": {
+            "type": "number",
+            "example": 100
+          }
+        }
+      },
+      "AddPagesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddPagesData"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 300
+          },
+          "added": {
+            "type": "number",
+            "example": 100
+          },
+          "start": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "end": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "finish": {
+            "type": "boolean",
+            "example": false
+          },
+          "isBookRead": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "GetPagesResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddPagesData"
+            }
+          },
+          "total": {
+            "type": "number",
+            "example": 300
+          },
+          "added": {
+            "type": "number",
+            "example": 100
+          },
+          "start": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          },
+          "end": {
+            "type": "string",
+            "format": "2022-07-23T17:52:52.540Z",
+            "example": "2022-07-23T17:52:52.540Z"
+          }
+        }
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Email or password is wrong"
+          }
+        }
+      },
+      "BadRequest": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Email or password is required"
+          }
+        }
+      },
+      "Conflict": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Email in use"
+          }
+        }
+      }
+    }
+  }
+}
