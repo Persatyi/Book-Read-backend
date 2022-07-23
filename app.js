@@ -1,6 +1,8 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger/bookReadApi.json");
 
 require("dotenv").config();
 
@@ -14,11 +16,10 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-// Роути писати під цим коментом
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/users", routers.users);
 
-// Route for books
 app.use("/api/books", routers.books);
 
 app.use("/api/trainings", routers.trainings);
