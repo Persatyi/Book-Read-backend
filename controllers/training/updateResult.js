@@ -44,7 +44,9 @@ const updateResult = async (req, res) => {
     }
   }
 
-  await Book.updateMany({ _id: { $in: booksForUpdate } }, { status: "read" });
+  if (booksForUpdate.length !== 0) {
+    await Book.updateMany({ _id: { $in: booksForUpdate } }, { status: "read" });
+  }
 
   if (addedPages >= totalPages || training.end < new Date()) {
     await Result.deleteMany({ _id: { $in: updatedTraining.results } });
