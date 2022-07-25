@@ -26,6 +26,7 @@ const updateResult = async (req, res) => {
     return (total += Number(el.pages));
   }, 0);
 
+  const booksForUpdate = [];
   let isBookRead = false;
   let amount = 0;
   for (const book of books) {
@@ -35,13 +36,15 @@ const updateResult = async (req, res) => {
         isBookRead = false;
         continue;
       } else {
-        await Book.findByIdAndUpdate({ _id: book._id }, { status: "read" });
+        booksForUpdate.push(book._id);
         isBookRead = true;
       }
     } else {
       break;
     }
   }
+
+  await Book.updateMany({ _id: { $in: booksForUpdate } }, { status: "read" });
 
   if (addedPages >= totalPages || training.end < new Date()) {
     await Result.deleteMany({ _id: { $in: updatedTraining.results } });
