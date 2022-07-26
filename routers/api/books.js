@@ -10,12 +10,25 @@ const router = express.Router();
 // Routing
 
 // Get all books
-router.get("/",auth, ctrlWrapper(ctrl.getAll));
+router.get("/", auth, ctrlWrapper(ctrl.getAll));
 
 // Add books to library
-router.post("/",auth, validation(schemas.addBook), ctrlWrapper(ctrl.add));
+router.post("/", auth, validation(schemas.addBook), ctrlWrapper(ctrl.add));
 
 // Add book review
-router.patch("/:bookId",auth, validation(schemas.reviewBook), ctrlWrapper(ctrl.review));
+router.patch(
+  "/:bookId",
+  auth,
+  validation(schemas.reviewBook),
+  ctrlWrapper(ctrl.review)
+);
+
+// Edit book
+router.put(
+  "/:bookId",
+  auth,
+  validation(schemas.addBook),
+  ctrlWrapper(ctrl.edit)
+);
 
 module.exports = router;
