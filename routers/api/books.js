@@ -3,7 +3,7 @@
 const express = require("express");
 const { books: ctrl } = require("../../controllers");
 const { ctrlWrapper } = require("../../helpers");
-const { validation, auth } = require("../../middlewares");
+const { validation, auth, isValidId } = require("../../middlewares");
 const { schemas } = require("../../models/book");
 const router = express.Router();
 
@@ -30,5 +30,8 @@ router.put(
   validation(schemas.addBook),
   ctrlWrapper(ctrl.edit)
 );
+
+// Delete book
+router.delete("/:bookId", auth, isValidId, ctrlWrapper(ctrl.deleteBook));
 
 module.exports = router;
