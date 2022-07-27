@@ -15,6 +15,11 @@
     "/users/login": {
       "post": {
         "summary": "Allows user to sign in",
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
         "tags": [
           "Auth"
         ],
@@ -66,6 +71,11 @@
     "/users/login-google": {
       "post": {
         "summary": "Login with using goggle account",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Auth"
         ],
@@ -174,6 +184,11 @@
     "/users/refresh": {
       "post": {
         "summary": "Refresh token",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Auth"
         ],
@@ -221,6 +236,11 @@
     "/users/current": {
       "get": {
         "summary": "Update user info",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Auth"
         ],
@@ -284,6 +304,11 @@
     "/users/logout": {
       "post": {
         "summary": "Refresh token",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Auth"
         ],
@@ -327,6 +352,11 @@
     "/books": {
       "get": {
         "summary": "Get all books",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Books"
         ],
@@ -362,6 +392,11 @@
       },
       "post": {
         "summary": "Add book",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Books"
         ],
@@ -455,8 +490,13 @@
       }
     },
     "/books/{bookId}": {
-      "patch": {
+      "put": {
         "summary": "Add review",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Books"
         ],
@@ -558,11 +598,182 @@
             }
           }
         }
+      },
+      "patch": {
+        "summary": "Edit book",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Books"
+        ],
+        "operationId": "editBook",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "required": true,
+            "description": "Book ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "aplication/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "example": "С++ Basic course"
+                    },
+                    "author": {
+                      "type": "string",
+                      "example": "Herbert Shield"
+                    },
+                    "year": {
+                      "type": "number",
+                      "example": 2020
+                    },
+                    "pages": {
+                      "type": "number",
+                      "example": 510
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "goingToRead"
+                    },
+                    "rating": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "resume": {
+                      "type": "string",
+                      "example": "My resume"
+                    },
+                    "owner": {
+                      "type": "string",
+                      "example": "62d15698f1aa0a611943115d"
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "62dc357442a2be44d13face5"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "2022-07-23T17:52:52.540Z",
+                      "example": "2022-07-23T17:52:52.540Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "2022-07-23T17:52:52.540Z",
+                      "example": "2022-07-23T17:52:52.540Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Book not found",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete book",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": [
+          "Books"
+        ],
+        "operationId": "deleteBook",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "required": true,
+            "description": "Book ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "book deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Book not found",
+            "content": {
+              "aplication/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/trainings": {
       "get": {
         "summary": "Get taining",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Training"
         ],
@@ -582,6 +793,11 @@
       },
       "post": {
         "summary": "Add training",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Training"
         ],
@@ -613,6 +829,11 @@
     "/results": {
       "post": {
         "summary": "Add pages",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Results"
         ],
@@ -653,6 +874,11 @@
       },
       "get": {
         "summary": "Get pages",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "tags": [
           "Results"
         ],
@@ -673,6 +899,17 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "LoginResponse": {
         "type": "object",
