@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://persatyi-book-read-backend.herokuapp.com/api",
+      "url": "book-read-backend-production.up.railway.app",
       "description": "Base URL"
     }
   ],
@@ -20,9 +20,7 @@
             "basicAuth": []
           }
         ],
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "operationId": "login",
         "requestBody": {
           "required": true,
@@ -76,9 +74,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "operationId": "login-google",
         "requestBody": {
           "required": true,
@@ -133,9 +129,7 @@
     "/users/register": {
       "post": {
         "summary": "Register user",
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "operationId": "regiser",
         "requestBody": {
           "required": true,
@@ -189,9 +183,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "operationId": "refresh",
         "requestBody": {
           "required": true,
@@ -241,9 +233,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "operationId": "current",
         "responses": {
           "200": {
@@ -309,9 +299,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "operationId": "logout",
         "responses": {
           "204": {
@@ -357,9 +345,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "operationId": "getAllBooks",
         "responses": {
           "200": {
@@ -397,9 +383,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "operationId": "addBook",
         "requestBody": {
           "required": true,
@@ -497,9 +481,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "operationId": "addReview",
         "parameters": [
           {
@@ -606,9 +588,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "operationId": "editBook",
         "parameters": [
           {
@@ -715,9 +695,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Books"
-        ],
+        "tags": ["Books"],
         "operationId": "deleteBook",
         "parameters": [
           {
@@ -774,9 +752,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Training"
-        ],
+        "tags": ["Training"],
         "operationId": "getTraining",
         "responses": {
           "200": {
@@ -798,9 +774,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Training"
-        ],
+        "tags": ["Training"],
         "operationId": "addTraining",
         "requestBody": {
           "required": true,
@@ -834,9 +808,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Results"
-        ],
+        "tags": ["Results"],
         "operationId": "addPages",
         "requestBody": {
           "required": true,
@@ -879,9 +851,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": [
-          "Results"
-        ],
+        "tags": ["Results"],
         "operationId": "getPages",
         "responses": {
           "201": {
@@ -939,10 +909,7 @@
       },
       "LoginRequest": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -956,9 +923,7 @@
       },
       "LoginGoogleRequest": {
         "type": "object",
-        "required": [
-          "googleToken"
-        ],
+        "required": ["googleToken"],
         "properties": {
           "googleToken": {
             "type": "string",
@@ -968,9 +933,7 @@
       },
       "RefreshToken": {
         "type": "object",
-        "required": [
-          "refreshToken"
-        ],
+        "required": ["refreshToken"],
         "properties": {
           "refreshToken": {
             "type": "string",
@@ -993,11 +956,7 @@
       },
       "RegisterUserRequest": {
         "type": "object",
-        "required": [
-          "email",
-          "name",
-          "password"
-        ],
+        "required": ["email", "name", "password"],
         "properties": {
           "email": {
             "type": "string",
@@ -1043,11 +1002,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "read",
-              "reading",
-              "goingToRead"
-            ],
+            "enum": ["read", "reading", "goingToRead"],
             "example": "goingToRead"
           },
           "rating": {
@@ -1104,11 +1059,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "read",
-              "reading",
-              "goingToRead"
-            ],
+            "enum": ["read", "reading", "goingToRead"],
             "example": "goingToRead"
           },
           "rating": {
@@ -1120,30 +1071,16 @@
             "example": "Your commentary"
           }
         },
-        "required": [
-          "title",
-          "author",
-          "year",
-          "pages"
-        ]
+        "required": ["title", "author", "year", "pages"]
       },
       "UpdateBookByIdReqBody": {
         "type": "object",
-        "required": [
-          "rating",
-          "resume"
-        ],
+        "required": ["rating", "resume"],
         "properties": {
           "rating": {
             "type": "number",
             "example": 5,
-            "enum": [
-              1,
-              2,
-              3,
-              4,
-              5
-            ]
+            "enum": [1, 2, 3, 4, 5]
           },
           "resume": {
             "type": "string",
@@ -1172,11 +1109,7 @@
             }
           }
         },
-        "required": [
-          "start",
-          "end",
-          "books"
-        ]
+        "required": ["start", "end", "books"]
       },
       "TrainingResponse": {
         "type": "object",
